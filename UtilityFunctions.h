@@ -51,7 +51,7 @@ void calculateScore(int Prs, int P1, int P2, int *Min, int *Max)
 //////////////////////////////////////////////////////////////////////////////////
 void sort()
 {
-	int i, j, t;
+	int i, j;
 	ch[0] = 1;
 	ch[1] = 2;
 	ch[2] = 4;
@@ -62,18 +62,13 @@ void sort()
 			if ((a[j]<a[j + 1]) || ((a[j] == a[j + 1]) && (b[j]<b[j + 1])))
 			{
 				//swap
-				t = a[j];
-				a[j] = a[j + 1];
-				a[j + 1] = t;
+				
+				swap(a[j],a[j+1]);
 
-				t = ch[j];
-				ch[j] = ch[j + 1];
-				ch[j + 1] = t;
+				swap(ch[j],ch[j+1]);
 
-				t = b[j];
-				b[j] = b[j + 1];
-				b[j + 1] = t;
-
+			
+				swap(b[j],b[j+1]);
 			}
 
 		}
