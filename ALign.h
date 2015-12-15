@@ -25,7 +25,7 @@ void Align(){
 	init_queue();
 	int branchend = 0;//a variable used to indicate whether the branch was totally expanded-->1 or not-->0
 
-
+	gettimeofday(&start, NULL);
 
 	//here we go
 	if (m != 0 && n != 0){
@@ -245,11 +245,16 @@ void Align(){
 			}
 			//check if the two sequences have below 30% similarity
 			//if yes,terminate with approximate alignment & score
-		checkThreshold(P1, P2, new_upper);
+		if(checkThreshold(P1, P2, new_upper))
+		{
+			approximate=1;
+			break;
+		}
 			
 		} while (optimalScore<new_upper);
 		//while the max_score of the top most node on the queue is higher than the optimalScore so far
 	
+		calculateElapsedtime();
 		constructAligned(optimalx, optimaly);
 
 
