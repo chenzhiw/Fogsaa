@@ -1,5 +1,6 @@
 #include "PriorityQueue.h"
 #include<algorithm>
+#include<sys/time.h>
 /////////////////////////////////////////////////////////////////////////////
 
 void createMatrix()
@@ -15,6 +16,15 @@ void createMatrix()
 
 	}
 
+}
+//////////////////////////////////////////////////////////////////////////////
+void calculateElapsedtime(){
+			gettimeofday(&end, NULL);
+
+    	seconds  = end.tv_sec  - start.tv_sec;
+    	useconds = end.tv_usec - start.tv_usec;
+
+ 	   mtime = ((seconds) * 1000 + useconds/1000.0) + 0.5;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -72,8 +82,13 @@ void sort()
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 void constructAligned(int x, int y){
+
+	cout<<"\nSize of the 1st Seq : "<<m<<endl;
+	cout<<"Size of the 2nd Seq : "<<n<<endl;
+	cout<<"Elapsed time : "<<mtime<<" milliseconds\n";
 	
-		while (!(x == 0 && y == 0) && approximate == 0)//where Cell[0][0] is the root node
+	if(!(x==0&&y==0)&&approximate==0){
+		while (!(x == 0 && y == 0))//where Cell[0][0] is the root node
 		{
 			if (Cell[x][y].type == 1){
 				//match/mismatch
@@ -96,17 +111,13 @@ void constructAligned(int x, int y){
 			else if (Cell[x][y].type == -1)
 				return; //this case won't happen but lets' be cautious for now,it will only happen at (0,0) which we won't already get to
 		}
+
 	
-	
-}
-//////////////////////////////////////////////////////////////////////////////////
-bool checkThreshold(int p1, int p2, int new_upper){
-	int cpl;
-	if (p1 > p2)
-		cpl = p1;
-	else
-		cpl = p2;
-	if (((cpl > 70 * l / 100) && (optimalScore < Threshold)) || (new_upper < Threshold)||(optimalx==0&&optimaly==0)){
+	cout << "\nOptimal ALignment\n";
+	cout << optimal1 << endl << optimal2<<endl;
+	cout << "Total no. of nodes expanded : " << expanded << endl;
+	}
+	else if(approximate==1||(x==0&&y==0)){
 
 		cout << "\nApproximate alignment\nThe two Sequences have less than 30"<<'%'<<" Similarity\n";
 		optimal1 = S1;
@@ -118,9 +129,23 @@ bool checkThreshold(int p1, int p2, int new_upper){
 			optimal2 += '-';
 
 		cout << optimal1 << endl << optimal2 << endl;
-		exit(1);
+	}
+	
+}
+//////////////////////////////////////////////////////////////////////////////////
+bool checkThreshold(int p1, int p2, int new_upper){
+	int cpl;
+	if (p1 > p2)
+		cpl = p1;
+	else
+		cpl = p2;
+	if (((cpl > 70 * l / 100) && (optimalScore < Threshold)) || (new_upper < Threshold)||(optimalx==0&&optimaly==0)){
+
+	
+		return true;
 	}
 
+	return false;
 }
 //////////////////////////////////////////////////////////////////////////////
 void setThreshold()
