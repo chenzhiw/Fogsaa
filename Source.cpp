@@ -23,7 +23,5 @@ int main(){
 	* */
 
 	Align();
-	cout << "\nOptimal ALignment\n";
-	cout << optimal1 << endl << optimal2<<endl;
-	cout << "Total no. of nodes expanded : " << expanded << endl;
+
 }
